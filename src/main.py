@@ -1,8 +1,35 @@
 from textnode import *
+import os
+import shutil
+
+def copy_files(source, dest):
+    if not os.path.exists(dest):
+        os.mkdir(dest)
+    
+    for item in os.listdir(source):
+        from_path = os.path.join(source, item)
+        to_path = os.path.join(dest, item)
+
+        print(f" * {from_path} -> {to_path}")
+
+        if os.path.isfile(from_path):
+            shutil.copy(from_path, to_path)
+        else:
+            copy_files(from_path, to_path)
+
 
 def main():
-    test = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
-    print(test)
+    source_static = "./static"
+    dest_public = "./public"
+
+    print("Cleaning public dir before copying...")
+    if os.path.exists(dest_public):
+        shutil.rmtree(dest_public)
+    
+    print("Copying static files into public dir...")
+    copy_files(source_static, dest_public)
+
+
 
 if __name__ == "__main__":
     main()
