@@ -39,7 +39,7 @@ def main():
     print("Copying static files into docs dir...")
     copy_files(source_static, dest_public)
 
-    generate_pages_recursive("content", "template.html", "docs", basepath)
+    generate_pages_recursive("./content", "./template.html", dest_public, basepath)
     
 
 
