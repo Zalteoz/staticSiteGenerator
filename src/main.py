@@ -1,6 +1,8 @@
 from textnode import *
 import os
 import shutil
+from gencontent import *
+
 
 def copy_files(source, dest):
     if not os.path.exists(dest):
@@ -28,6 +30,9 @@ def main():
     
     print("Copying static files into public dir...")
     copy_files(source_static, dest_public)
+
+    generate_pages_recursive("content", "template.html", "public")
+    
 
 
 
