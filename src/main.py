@@ -2,6 +2,7 @@ from textnode import *
 import os
 import shutil
 from gencontent import *
+import sys
 
 
 def copy_files(source, dest):
@@ -21,17 +22,24 @@ def copy_files(source, dest):
 
 
 def main():
+
+    basepath = "/"
+
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+
+
     source_static = "./static"
-    dest_public = "./public"
+    dest_public = "./docs"
 
     print("Cleaning public dir before copying...")
     if os.path.exists(dest_public):
         shutil.rmtree(dest_public)
     
-    print("Copying static files into public dir...")
+    print("Copying static files into docs dir...")
     copy_files(source_static, dest_public)
 
-    generate_pages_recursive("content", "template.html", "public")
+    generate_pages_recursive("content", "template.html", "docs", basepath)
     
 
 
